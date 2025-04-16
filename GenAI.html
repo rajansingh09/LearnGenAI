@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnGen Study Assistant</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <link rel="stylesheet" href="bot.css">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <img src="images/logo.png" alt="" class="h-8 w-auto">
+                    <span class="ml-2 text-lg font-medium text-indigo-600">LearnGen.ai</span>
+                </div>
+                <ul class="hidden md:flex space-x-4">
+                    <li><a href="index.html" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Home</a></li>
+                    <li><a href="Features.html" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Features</a></li>
+                    <li><a href="Pricing.html" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Pricing</a></li>
+                    <li><a href="login.html" class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-md text-sm font-medium">Login</a></li>
+                </ul>
+                <div class="md:hidden">
+                    <button id="mobileMenuButton" class="text-gray-700 hover:text-indigo-600 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <ul id="mobileMenu" class="hidden md:hidden bg-white shadow-lg">
+            <li><a href="index.html" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Home</a></li>
+            <li><a href="Features.html" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Features</a></li>
+            <li><a href="Pricing.html" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Pricing</a></li>
+            <li><a href="login.html" class="text-indigo-500 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 container mx-auto px-4 py-6 max-w-4xl">
+        <!-- Chat Container -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <!-- Chat Header -->
+            <div class="bg-gray-800 text-white px-4 py-3">
+                <h2 class="text-lg font-semibold">Study Assistant</h2>
+                <p class="text-sm opacity-75">Ask anything from 6th grade to college level</p>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chat-container" class="h-96 overflow-y-auto p-4 space-y-4">
+                <!-- AI Welcome Message -->
+                <div class="flex items-start space-x-2">
+                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                        <span class="material-icons text-white">smart_toy</span>
+                    </div>
+                    <div class="bg-gray-100 p-3 rounded-lg max-w-3xl">
+                        <p class="font-medium text-blue-600">StudyBot</p>
+                        <p>Hi! I'm your AI study assistant. Ask me anything about:</p>
+                        <div class="mt-2 flex flex-wrap gap-2">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Math</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Science</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">NEET/JEE</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Coding</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="border-t p-4 bg-gray-50">
+                <div class="flex gap-2">
+                    <!-- Tools Column -->
+                    <div class="flex flex-col gap-2 w-1/6">
+                        <button id="upload-btn" class="w-full p-2 bg-white border rounded hover:bg-gray-100">
+                            📁 Upload Image
+                        </button>
+                    </div>
+
+                    <!-- Main Input -->
+                    <div class="flex-1 flex gap-2">
+                        <input id="user-input" type="text" placeholder="Type your question here..." 
+                               class="flex-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button id="send-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center">
+                            <span type="send" class="material-icons mr-2">send</span>
+                            Send
+                        </button>
+                    </div>
+                </div>
+                <input type="file" id="file-input" accept="image/*" class="hidden">
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-8 py-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="font-bold mb-2">StudyBot</h3>
+                    <p class="text-sm text-gray-400">24/7 AI-powered academic assistance for students of all levels</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-blue-400">About Us</a></li>
+                        <li><a href="#" class="hover:text-blue-400">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-blue-400">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>Email: support@studybot.com</li>
+                        <li>Phone: +91 98765 43210</li>
+                        <div class="flex space-x-4 mt-2">
+                            <a href="#" class="hover:text-blue-400">📘 Facebook</a>
+                            <a href="#" class="hover:text-blue-400">🐦 Twitter</a>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-700 text-center text-sm text-gray-400">
+                © 2024 StudyBot. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="bot.js"></script>
+</body>
+</html>

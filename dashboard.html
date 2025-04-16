@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - LearnGenie.ai</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <img src="../images/logo.png" alt="LearnGenie.ai" class="h-8 w-auto">
+                    <span class="ml-2 text-xl font-bold text-indigo-600">LearnGenie.ai</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div id="userProfile" class="flex items-center">
+                        <img id="userAvatar" class="h-8 w-8 rounded-full" src="https://via.placeholder.com/32" alt="User profile">
+                        <span id="userName" class="ml-2 text-sm font-medium text-gray-700 hidden md:inline"></span>
+                    </div>
+                    <button id="logoutBtn" class="text-sm text-gray-500 hover:text-indigo-600">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900">Welcome back, <span id="welcomeName" class="text-indigo-600">Student</span>!</h1>
+            <p class="mt-2 text-gray-600">What would you like to learn today?</p>
+        </div>
+
+        <!-- Progress Overview -->
+        <div class="bg-white shadow rounded-lg p-6 mb-8">
+            <h2 class="text-lg font-medium text-gray-900 mb-4">Your Learning Progress</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Overall Progress -->
+                <div>
+                    <h3 class="text-sm font-medium text-gray-500">Overall Mastery</h3>
+                    <div class="mt-2 flex items-center">
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                            <div id="overallProgress" class="bg-indigo-600 h-4 rounded-full" style="width: 65%"></div>
+                        </div>
+                        <span class="ml-2 text-sm font-medium text-gray-700">65%</span>
+                    </div>
+                </div>
+                
+                <!-- Streak -->
+                <div>
+                    <h3 class="text-sm font-medium text-gray-500">Current Streak</h3>
+                    <div class="mt-2 flex items-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-fire text-orange-500 text-xl"></i>
+                            <span class="ml-2 text-lg font-bold text-gray-700">7</span>
+                            <span class="ml-1 text-sm text-gray-500">days</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Time Spent -->
+                <div>
+                    <h3 class="text-sm font-medium text-gray-500">Time This Week</h3>
+                    <div class="mt-2 flex items-center">
+                        <div class="flex items-center">
+                            <i class="far fa-clock text-indigo-500 text-xl"></i>
+                            <span class="ml-2 text-lg font-bold text-gray-700">4h 22m</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subject Cards -->
+        <div class="mb-8">
+            <h2 class="text-lg font-medium text-gray-900 mb-4">Subjects</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Math Card -->
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                <i class="fas fa-square-root-alt text-white text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Mathematics</h3>
+                                <p class="mt-1 text-sm text-gray-500">Algebra, Geometry, Calculus</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <h4 class="text-xs font-medium text-gray-500">Progress</h4>
+                            <div class="mt-2 flex items-center">
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-indigo-600 h-2 rounded-full" style="width: 72%"></div>
+                                </div>
+                                <span class="ml-2 text-xs font-medium text-gray-700">72%</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 grid grid-cols-2 gap-4">
+                            <button onclick="location.href='quiz.html?subject=math'" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 transition">
+                                Take Quiz
+                            </button>
+                            <button onclick="location.href='tutor.html?subject=math'" class="px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50 transition">
+                                Ask Tutor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Science Card -->
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
+                                <i class="fas fa-atom text-white text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Science</h3>
+                                <p class="mt-1 text-sm text-gray-500">Biology, Chemistry, Physics</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <h4 class="text-xs font-medium text-gray-500">Progress</h4>
+                            <div class="mt-2 flex items-center">
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: 58%"></div>
+                                </div>
+                                <span class="ml-2 text-xs font-medium text-gray-700">58%</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 grid grid-cols-2 gap-4">
+                            <button onclick="location.href='quiz.html?subject=science'" class="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 transition">
+                                Take Quiz
+                            </button>
+                            <button onclick="location.href='tutor.html?subject=science'" class="px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50 transition">
+                                Ask Tutor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Language Arts Card -->
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-yellow-500 rounded-md p-3">
+                                <i class="fas fa-book text-white text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Language Arts</h3>
+                                <p class="mt-1 text-sm text-gray-500">Reading, Writing, Grammar</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <h4 class="text-xs font-medium text-gray-500">Progress</h4>
+                            <div class="mt-2 flex items-center">
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-yellow-500 h-2 rounded-full" style="width: 81%"></div>
+                                </div>
+                                <span class="ml-2 text-xs font-medium text-gray-700">81%</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 grid grid-cols-2 gap-4">
+                            <button onclick="location.href='quiz.html?subject=language'" class="px-4 py-2 bg-yellow-600 text-white text-sm font-medium rounded-md hover:bg-yellow-700 transition">
+                                Take Quiz
+                            </button>
+                            <button onclick="location.href='tutor.html?subject=language'" class="px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50 transition">
+                                Ask Tutor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mb-8">
+            <h2 class="text-lg font-medium text-gray-900 mb-4">Quick Actions</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <button onclick="location.href='tutor.html'" class="bg-white p-4 shadow rounded-lg hover:bg-gray-50 transition flex items-center">
+                    <div class="bg-indigo-100 p-3 rounded-full">
+                        <i class="fas fa-robot text-indigo
